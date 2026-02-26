@@ -35,6 +35,7 @@ export default function MusicPlayer() {
     toggleLike, isLiked
   } = usePlayer();
 
+  const audioRef = useRef<HTMLAudioElement>(null);
   const [localProgress, setLocalProgress] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const intervalRef = useRef<number>();
