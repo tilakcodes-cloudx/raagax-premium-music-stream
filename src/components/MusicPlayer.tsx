@@ -40,19 +40,52 @@ export default function MusicPlayer() {
   const [isDragging, setIsDragging] = useState(false);
   const intervalRef = useRef<number>();
 
+  /* ================= REAL AUDIO ENGINE ================= */
+
+useEffect(() => {
+  if (!audioRef.current || !currentSong?.audio) return;
+
+  audioRef.current.src = currentSong.audio;
+  audioRef.current.volume = volume / 100;
+
+  if (isPlaying) {
+    audioRef.current.play().catch(() => {});
+  } else {
+    audioRef.current.pause();
+  }
+}, [currentSong, isPlaying, volume]);
+
+/* Auto next when song ends */
+useEffect(() => {
+  if (!audioRef.current) return;
+
+  audioRef.current.onended = () => {
+    nextSong();
+  };
+}, [nextSong]);
+  
   useEffect(() => {
     if (!isDragging) setLocalProgress(progress);
   }, [progress, isDragging]);
 
-  // Simulate progress
-  useEffect(() => {
-    if (isPlaying && currentSong) {
-      intervalRef.current = window.setInterval(() => {
-        setProgress(Math.min(progress + (100 / (currentSong.durationMs / 1000)), 100));
-      }, 1000);
-    }
-    return () => clearInterval(intervalRef.current);
-  }, [isPlaying, progress, currentSong, setProgress]);
+/* ================= REAL PROGRESS SYNC ================= */
+
+useEffect(() => {
+  const audio = audioRef.current;
+  if (!audio) return;
+
+  const updateProgress = () => {
+    const pct = (audio.currentTime / audio.duration) * 100;
+    setProgress(pct || 0);
+    setLocalProgress(pct || 0);
+  };
+
+  audio.addEventListener("timeupdate", updateProgress);
+
+  return () => {
+    audio.removeEventListener("timeupdate", updateProgress);
+  };
+}, [setProgress]);
 
   if (!currentSong) {
     return (
@@ -173,6 +206,7 @@ export default function MusicPlayer() {
           </button>
         </div>
       </div>
+    <audio ref={audioRef} />
     </motion.div>
   );
 }
