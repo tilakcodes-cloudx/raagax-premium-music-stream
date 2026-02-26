@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { playlists, moodPlaylists, songs } from "@/data/songs";
+import { playlists, moodPlaylists, songs, getSongById } from "@/data/songs";
 import PlaylistCard from "@/components/PlaylistCard";
 import SongRow from "@/components/SongRow";
 import { usePlayer } from "@/context/PlayerContext";
