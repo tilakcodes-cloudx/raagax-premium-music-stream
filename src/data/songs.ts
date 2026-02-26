@@ -30,7 +30,7 @@ export interface Playlist {
 export const covers = { cover1, cover2, cover3, cover4, cover5, cover6, cover7 };
 
 export const songs: Song[] = [
-  { id: "k1", title: "Kantara Title Track", artist: "Sai Vignesh", album: "Kantara", duration: "3:45", durationMs: 225000, cover: cover1, language: "Kannada", genre: "Folk" },
+  { id: "k1", title: "Kantara Title Track", artist: "Sai Vignesh", album: "Kantara", duration: "3:45", durationMs: 225000, cover: cover1, language: "Kannada", genre: "Folk", audio: "/songs/kantara.mp3" },
   { id: "k2", title: "Belageddu", artist: "Armaan Malik", album: "Kirik Party", duration: "4:12", durationMs: 252000, cover: cover3, language: "Kannada", genre: "Melody" },
   { id: "k3", title: "Neenaade Naa", artist: "Sanjith Hegde", album: "Yuvarathnaa", duration: "3:58", durationMs: 238000, cover: cover6, language: "Kannada", genre: "Melody" },
   { id: "t1", title: "Arabic Kuthu", artist: "Anirudh", album: "Beast", duration: "3:30", durationMs: 210000, cover: cover2, language: "Tamil", genre: "Pop" },
