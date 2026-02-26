@@ -84,7 +84,6 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 function QuickPlayCard({ playlist, index }: { playlist: any; index: number }) {
   const { playQueue } = usePlayer();
-  const { getSongById } = require("@/data/songs");
 
   const handlePlay = () => {
     const queueSongs = playlist.songs.map((id: string) => getSongById(id)).filter(Boolean);
