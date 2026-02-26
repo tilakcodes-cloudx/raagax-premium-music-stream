@@ -95,10 +95,9 @@ useEffect(() => {
     );
   }
 
-  const formatTime = (ms: number, pct: number) => {
-    const secs = Math.floor((ms * pct) / 100000);
-    const m = Math.floor(secs / 60);
-    const s = secs % 60;
+  const formatTime = (seconds: number) => {
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
     return `${m}:${s.toString().padStart(2, "0")}`;
   };
 
@@ -162,7 +161,7 @@ useEffect(() => {
           {/* Progress */}
           <div className="w-full flex items-center gap-2">
             <span className="text-[10px] text-muted-foreground w-10 text-right tabular-nums">
-              {formatTime(currentSong.durationMs, localProgress)}
+              {formatTime(audioRef.current?.currentTime || 0)}
             </span>
             <div
               className="flex-1 h-1 bg-white/[0.1] rounded-full cursor-pointer group relative"
@@ -180,7 +179,7 @@ useEffect(() => {
               </div>
             </div>
             <span className="text-[10px] text-muted-foreground w-10 tabular-nums">
-              {currentSong.duration}
+              {formatTime(audioRef.current?.duration || 0)}
             </span>
           </div>
         </div>
