@@ -193,11 +193,14 @@ useEffect(() => {
           </button>
           <div
             className="w-24 h-1 bg-white/[0.1] rounded-full cursor-pointer group"
-            onClick={(e) => {
-              const rect = e.currentTarget.getBoundingClientRect();
-              const pct = ((e.clientX - rect.left) / rect.width) * 100;
-              setVolume(Math.round(pct));
-            }}
+           onClick={(e) => {
+             if (!audioRef.current) return;
+
+             const rect = e.currentTarget.getBoundingClientRect();
+             const pct = (e.clientX - rect.left) / rect.width;
+
+             audioRef.current.currentTime = pct * audioRef.current.duration;
+           }}
           >
             <div className="h-full bg-foreground rounded-full group-hover:bg-primary transition-colors" style={{ width: `${volume}%` }} />
           </div>
