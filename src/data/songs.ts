@@ -16,6 +16,7 @@ export interface Song {
   cover: string;
   language: string;
   genre: string;
+  audio?: string;
   liked?: boolean;
 }
 
